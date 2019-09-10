@@ -96,7 +96,7 @@ else:
 
 try:
     throw()
-except Exception('threw'):
+except Exception:
     oops()
 finally:
     one()
