@@ -85,11 +85,13 @@ def main():
     try:
         column = get_column_from_file(args.filename, args.col_number)
     except IndexError:
-        print(args.filename, 'does not have a column index', args.col_number, '!')
+        print(args.filename, 'does not have a column index',
+              str(args.col_number)+'!')
         sys.exit(1)
     except FileNotFoundError:
         print(args.filename,
-              'could not be found! Check to see if your file is in this directory')
+              'could not be found! Check to see if your',
+              'file is in this directory')
         sys.exit(1)
     except PermissionError:
         print(args.filename, 'could not be opened! Check',
