@@ -12,12 +12,15 @@ assert_exit_code 0
 assert_no_stdout
 
 # Testing general working behavior with random numbers
-(for i in `seq 1 100`; do 
+for i in `seq 1 10000`; do 
     echo -e "$RANDOM\t$RANDOM\t$RANDOM\t$RANDOM\t$RANDOM";
-done )> data.txt
+done > data.txt
 
 run test_random_stats python get_column_stats.py --f data.txt --col_number 2
+
 assert_exit_code 0
+assert_in_stdout 'mean: 16'
+assert_in_stdout 'stdev: 9'
 assert_stdout
 assert_no_stderr
 
