@@ -1,17 +1,50 @@
-pycodestyle style.py
+#!/bin/bash
+test -e ssshtest ||  wget -q http://raw.githubusercontent.com/ryanlayer/ssshtest/master/ssshtest
+. ssshtest
 
-pycodestyle get_column_stats.py
+# Testing PEP8 style
+run test_style pycodestyle style.py
+assert_exit_code 0
+assert_no_stdout
 
+run test_get_column_stats_style pycodestyle get_column_stats.py
+assert_exit_code 0
+assert_no_stdout
+
+# Testing general working behavior with random numbers
 (for i in `seq 1 100`; do 
     echo -e "$RANDOM\t$RANDOM\t$RANDOM\t$RANDOM\t$RANDOM";
 done )> data.txt
 
-python get_column_stats.py data.txt 2
+run test_random_stats python get_column_stats.py --f data.txt --col_number 2
+assert_exit_code 0
+assert_stdout
+assert_no_stderr
 
 
-V=1
-(for i in `seq 1 100`; do 
-    echo -e "$V\t$V\t$V\t$V\t$V";
-done )> data.txt
+# Testing expected behavior output with numbers 1 through 10
+for j in `seq 1 10`; do
+    V=$j;
+    (for i in `seq 1 100`; do 
+        echo -e "$V\t$V\t$V\t$V\t$V";
+    done )> data.txt
+    run test_expected_stats python get_column_stats.py --f data.txt --col_number 2
+    assert_in_stdout mean: $V.0\nstdev: 0.0
+    done
 
-python get_column_stats.py data.txt 2
+# Testing error handling
+run test_no_flag python get_column_stats.py
+assert_no_stdout
+assert_in_stderr 'arguments are required'
+assert_exit_code 2
+
+run test_python python get_column_stats.py -f not_a_file.txt --col_number 10
+assert_no_stdout
+assert_in_stderr 'Check to see if your file is in this'
+assert_exit_code 1
+
+run test_python python get_column_stats.py -f data.txt --col_number 10
+assert_no_stdout
+assert_in_stderr 'does not have a column index'
+assert_exit_code 1
+

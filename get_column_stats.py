@@ -86,16 +86,19 @@ def main():
         column = get_column_from_file(args.filename, args.col_number)
     except IndexError:
         print(args.filename, 'does not have a column index',
-              str(args.col_number)+'!')
+              str(args.col_number)+'!',
+              file=sys.stderr)
         sys.exit(1)
     except FileNotFoundError:
         print(args.filename,
               'could not be found! Check to see if your',
-              'file is in this directory')
+              'file is in this directory',
+              file=sys.stderr)
         sys.exit(1)
     except PermissionError:
         print(args.filename, 'could not be opened! Check',
-              str(args.filename)+"'s", 'permisions!')
+              str(args.filename)+"'s", 'permisions!',
+              file=sys.stderr)
         sys.exit(1)
 
     # Do specific calculations
