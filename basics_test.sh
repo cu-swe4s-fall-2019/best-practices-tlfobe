@@ -32,7 +32,7 @@ for j in `seq 1 10`; do
         echo -e "$V\t$V\t$V\t$V\t$V";
     done )> data.txt
     run test_expected_stats python get_column_stats.py --f data.txt --col_number 2
-    assert_in_stdout mean: $V.0\nstdev: 0.0
+    assert_in_stdout "mean: $V"
     done
 
 # Testing error handling
