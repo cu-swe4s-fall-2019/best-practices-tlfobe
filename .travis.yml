@@ -14,4 +14,4 @@ before_install:
       
 script:
     - bash basics_test.sh
-    - python basics_test.py
+    - python -m unittest basics_test.py
