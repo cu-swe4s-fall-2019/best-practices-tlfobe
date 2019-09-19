@@ -43,8 +43,20 @@ def calc_mean(column_list):
     -------
     mean : float
     """
-
-    mean = sum(column_list)/len(column_list)
+    # Handling catch all input errors
+    if column_list is None:
+        raise TypeError("calc_mean: requires an input list of numbers!")
+    if column_list[0] is None:
+        raise IndexError("calc_mean: reqruies a populated list of numbers!")
+    list_types = [not isinstance(column_value, (float, int, np.float, np.int))
+                  for column_value in column_list
+                  ]
+    if not isinstance(column_list, list):
+        raise TypeError("calc_std: requires a list input!")
+    if any(list_types):
+        raise TypeError("calc_mean: Incorrect type in input list!")
+    else:
+        mean = sum(column_list)/len(column_list)
     return(mean)
 
 
@@ -69,6 +81,8 @@ def calc_stdev(column_list):
     list_types = [not isinstance(column_value, (float, int, np.float, np.int))
                   for column_value in column_list
                   ]
+    if not isinstance(column_list, list):
+        raise TypeError("calc_std: requires a list input!")
     if any(list_types):
         raise TypeError("calc_stdev: Incorrect type in input list!")
     else:
