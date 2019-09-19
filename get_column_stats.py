@@ -1,6 +1,7 @@
 import sys
 import math
 import argparse
+import numpy as np
 
 
 def get_column_from_file(file_name, col_num):
@@ -59,10 +60,19 @@ def calc_stdev(column_list):
     -------
     stdev : float
     """
-    mean = calc_mean(column_list)
-    stdev = math.sqrt(
-        sum([(mean-x)**2 for x in column_list]) / len(column_list))
-    return(stdev)
+    
+    # Handling catch all input errors
+    if column_list is None:
+        raise TypeError("calc_stdev: requires an input list of numbers!")
+    if column_list[0] is None:
+        raise IndexError("calc_stdev: reqruies a populated list of numbers!")
+    if any([not isinstance(column_value, (float, int, np.float, np.int)) for column_value in column_list]):
+        raise TypeError("calc_stdev: Incorrect type in input list!")
+    else:
+        mean = calc_mean(column_list)
+        stdev = math.sqrt(
+            sum([(mean-x)**2 for x in column_list]) / len(column_list))
+        return(stdev)
 
 
 def main():
