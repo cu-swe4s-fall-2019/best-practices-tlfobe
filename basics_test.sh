@@ -41,13 +41,29 @@ assert_no_stdout
 assert_in_stderr 'arguments are required'
 assert_exit_code 2
 
-run test_python python get_column_stats.py -f not_a_file.txt --col_number 10
+run test_incorrect_input python get_column_stats.py -f data.txt --col_number number
+assert_in_stderr 'invalid int value:'
+assert_exit_code 2
+
+run test_invalid_file python get_column_stats.py -f not_a_file.txt --col_number 10
 assert_no_stdout
 assert_in_stderr 'Check to see if your file is in this'
 assert_exit_code 1
 
-run test_python python get_column_stats.py -f data.txt --col_number 10
+run test_column_input python get_column_stats.py -f data.txt --col_number 10
 assert_no_stdout
 assert_in_stderr 'does not have a column index'
 assert_exit_code 1
 
+chmod -r data.txt
+
+run test_file_perimission python get_column_stats.py -f data.txt --col_number 1
+assert_exit_code 1
+assert_in_sterr 'permisions!'
+
+
+# cleanup
+
+chmod -r data.txt
+rm data.txt
+rm -r ssshtest

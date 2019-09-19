@@ -47,3 +47,5 @@ class TestMean(unittest.TestCase):
 
     def test_mean_str_list_error(self):
         self.assertRaises(TypeError, gcs.calc_mean, ['string', 'string'])
+
+    
