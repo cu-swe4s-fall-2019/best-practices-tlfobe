@@ -1,6 +1,9 @@
 # Best Practices
 
+[![Build Status](https://travis-ci.com/cu-swe4s-fall-2019/best-practices-tlfobe.svg?branch=master)](https://travis-ci.com/cu-swe4s-fall-2019/best-practices-tlfobe)
+
 ## Description
+
 This repository will be used to demonstrate various coding best-practices we covered in CSCI7000 at CU Boulder.
 The program `get_column_stats.py` takes in a data file with tab separated rows and column and returns the mean and average of a specified row.
 The program `style.py` is mostly just a demonstration file for the general PEP8 style, with no significant output.
@@ -18,3 +21,18 @@ Where `[data_file]` is the name of the file you would like to analyze and `[colu
 ## Installation
 
 Since these python scripts are interpreted by your computers python, there are no major installation scripts.
+
+## Testing
+
+This repository comes with a handful of useful test scripts to ensure the program is installed correcty. To run these tests run the following:
+
+
+### Python Unit Tests
+```
+python -m unittest basics_test.py
+```
+
+### SSSHTest Functional Tests
+```
+bash basics_test.sh
+```

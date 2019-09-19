@@ -63,7 +63,6 @@ assert_in_sterr 'permisions!'
 
 
 # cleanup
-
 chmod -r data.txt
 rm data.txt
 rm -r ssshtest
