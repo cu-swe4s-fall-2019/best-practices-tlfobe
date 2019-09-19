@@ -60,13 +60,16 @@ def calc_stdev(column_list):
     -------
     stdev : float
     """
-    
+
     # Handling catch all input errors
     if column_list is None:
         raise TypeError("calc_stdev: requires an input list of numbers!")
     if column_list[0] is None:
         raise IndexError("calc_stdev: reqruies a populated list of numbers!")
-    if any([not isinstance(column_value, (float, int, np.float, np.int)) for column_value in column_list]):
+    list_types = [not isinstance(column_value, (float, int, np.float, np.int))
+                  for column_value in column_list
+                  ]
+    if any(list_types):
         raise TypeError("calc_stdev: Incorrect type in input list!")
     else:
         mean = calc_mean(column_list)
