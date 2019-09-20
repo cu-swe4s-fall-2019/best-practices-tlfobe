@@ -20,7 +20,13 @@ Where `[data_file]` is the name of the file you would like to analyze and `[colu
 
 ## Installation
 
-Since these python scripts are interpreted by your computers python, there are no major installation scripts.
+This package and its tests depend on numpy, so before running this program be sure numpy is installed on your pythn build.
+
+
+To install numpy from conda run the following command :
+```
+conda install numpy
+```
 
 ## Testing
 
